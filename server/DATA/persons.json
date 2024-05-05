@@ -1,0 +1,21 @@
+{
+"persons": [
+{
+"id": 1,
+"name": "Ron",
+"movie_list": []
+},
+{
+"id": 2,
+"name": "Gal",
+"movie_list": []
+},
+{
+"id": 3,
+"name": "guy",
+"movie_list": [
+"Get Him To The Greek"
+]
+}
+]
+}
