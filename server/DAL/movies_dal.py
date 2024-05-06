@@ -1,6 +1,6 @@
 import requests
 
-class MoviesREP():
+class MoviesDAL():
     def __init__(self):
         self.__url = "https://api.tvmaze.com/shows"
 

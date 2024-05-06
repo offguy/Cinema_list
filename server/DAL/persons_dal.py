@@ -1,7 +1,7 @@
 import json, os, sys
 
 
-class PersonsREP():
+class PersonsDAL():
     def __init__(self) -> None:
         self.__path = os.path.join(sys.path[0], "DATA\\persons.json")
 

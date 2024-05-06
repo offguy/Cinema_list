@@ -1,12 +1,12 @@
-from REPO.movies_rep import MoviesREP
+from DAL.movies_dal import MoviesDAL
 from flask import jsonify
 
 class MoviesBL():
     def __init__(self):
-        self.movies_rep = MoviesREP()
+        self.movies_dal = MoviesDAL()
 
     def get_all_movies(self):
-        data = self.movies_rep.get_all_movies_data()
+        data = self.movies_dal.get_all_movies_data()
         movies = list(map(lambda x: {
             "title": x["name"],
             "rating": x["rating"]["average"],
