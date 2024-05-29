@@ -21,7 +21,6 @@ async function getDataFromServer()
   let resp = await fetch("http://127.0.0.1:5000/persons");
   let persons = await resp.json();
   console.log(persons)
-
   let bodyObj = document.getElementById("tBody")
   
   // Clear existing rows
@@ -31,18 +30,19 @@ async function getDataFromServer()
   {
     let tdId = document.createElement("td")
     let tdName = document.createElement("td")
-    let tdMovies = document.createElement("td")
-
+    let tdNumOfMovies = document.createElement("td")
+    let tdMoviesTitles = document.createElement("td")
 
     tdId.innerText = per.id;
     tdName.innerText = per.name;
-    tdMovies.innerText = per.movie_list;
-    ;
+    tdNumOfMovies.innerText = per.movie_list.length;
+    tdMoviesTitles.innerText = per.movie_list;
 
     let trObj = document.createElement("tr");
     trObj.appendChild(tdId);
     trObj.appendChild(tdName);
-    trObj.appendChild(tdMovies);
+    trObj.appendChild(tdNumOfMovies);
+    trObj.appendChild(tdMoviesTitles);
 
     bodyObj.appendChild(trObj);
 
@@ -53,7 +53,6 @@ async function getDataFromServer()
 async function getMoviesFromServer() {
     let resp = await fetch("http://127.0.0.1:5000/movies");
     let movies = await resp.json();
-    console.log(movies);
 
     let moviesContainer = document.getElementById("moviesContainer");
     moviesContainer.innerHTML = ""; // Clear existing movies
@@ -87,14 +86,12 @@ async function getMoviesFromServer() {
 }
 </script>
 
-<body>
+<body onload="getDataFromServer()">
     
 
 <br/><br/><br/>
 <div class="container">
 
-    <button type="button" class="btn btn-dark" onclick="getDataFromServer()">Get Data From Server</button>
-    <!-- <button type="button" class="btn btn-dark" onclick="createNew()">Create New</button> -->
 
     <br/> <br/>
 
@@ -104,8 +101,8 @@ async function getMoviesFromServer() {
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Movies</th>
-            <th scope="col"></th>
+            <th scope="col">Movies watched</th>
+            <th scope="col">Titles</th>
           </tr>
         </thead>
         <tbody id="tBody">
