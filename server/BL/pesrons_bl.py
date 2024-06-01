@@ -25,6 +25,7 @@ class PersonsBL():
         for p in persons:
             if p["id"] == int(id):
                 p["name"] = obj["name"]
+                p["password"] = obj["password"]
                 p["movie_list"] = obj["movie_list"]
                 break
         self.persons_dal.save_persons(persons)        
@@ -36,14 +37,16 @@ class PersonsBL():
         self.persons_dal.save_persons(new_persons)
         return jsonify(f"person {id} deleted")
     
+    
     def add_movie_to_person_list(self, id, obj):
-            persons = self.persons_dal.get_all_persons()
-            for p in persons:
-                if p["id"] == int(id):
-                    exist = list(filter(lambda x: x == obj["title"], p["movie_list"]))
-                    if len(exist) == 0:
-                        p["movie_list"].append(obj["title"])
-                        break
-                    return jsonify(f"movie already in {p["name"]}'s list")
-            self.persons_dal.save_persons(persons)
-            return jsonify(f"movie {obj["title"]} added to {p["name"]}'s movies list")       
+        persons = self.persons_dal.get_all_persons()
+        for p in persons:
+            if p["id"] == int(id):
+                exist = list(filter(lambda x: x == obj["title"], p["movie_list"]))
+                if len(exist) != 0:
+                    return jsonify(f"Movie already in {p['name']}'s list")
+                p["movie_list"].append(obj["title"])
+                self.persons_dal.save_persons(persons)
+                return jsonify(f"Movie {obj['title']} added to {p['name']}'s movies list")
+        
+        return jsonify(f"Person with ID {id} not found")       

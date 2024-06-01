@@ -3,18 +3,22 @@
 {
 "id": 1,
 "name": "Ron",
+"password": "123",
 "movie_list": []
 },
 {
 "id": 2,
 "name": "Gal",
+"password": "123",
 "movie_list": []
 },
 {
 "id": 3,
 "name": "guy",
+"password": "123",
 "movie_list": [
-"Get Him To The Greek"
+"Get Him To The Greek",
+"Under the Dome"
 ]
 }
 ]

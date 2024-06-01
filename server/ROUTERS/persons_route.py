@@ -29,5 +29,6 @@ def update_person(id):
 @persons_route.route("/persons/<string:id>", methods=["POST"])
 def add_movie_to_person_list(id):
         obj = request.json
+        print(obj)
         return persons_bl.add_movie_to_person_list(id, obj)
 

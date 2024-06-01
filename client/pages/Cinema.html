@@ -79,20 +79,35 @@ async function getMoviesFromServer() {
         rating.innerText = "Rating: " + movie.rating;
         rating.style.fontSize = "10px"; // Adjust font size if needed
         movieCard.appendChild(rating);
-
+        
+        if (sessionStorage.getItem("id") !== null){
+          let addBtn = document.createElement("button");
+          addBtn.innerText = "Add Movie to " + sessionStorage.getItem("id")
+          addBtn.onclick = (e) => {
+            const resp = fetch("http://127.0.0.1:5000/persons/" + sessionStorage.getItem("id"), {
+              method: "POST",
+              headers: {
+                        'Content-Type': 'application/json'
+                    },
+              body: JSON.stringify({"title": movie.title})
+            })
+          }
+          movieCard.appendChild(addBtn)
+        }
         // Append movie card to container
         moviesContainer.appendChild(movieCard);
+
     });
 }
 </script>
 
-<body onload="getDataFromServer()">
+<body onload="getDataFromServer(), getMoviesFromServer()">
     
 
 <br/><br/><br/>
 <div class="container">
-
-
+    
+  <button onclick='window.location.href = "http://127.0.0.1:5500/Lessons/Lesson%209%20BAL/Exc/Cinema/client/pages/login.html"'>Login</button>
     <br/> <br/>
 
 
@@ -113,7 +128,6 @@ async function getMoviesFromServer() {
 </div>
 <br> <br>
 <div class="container">
-  <button type="button" class="btn btn-dark" onclick="getMoviesFromServer()">Get Movies</button>
 
   <div id="moviesContainer"></div>
 </div>
