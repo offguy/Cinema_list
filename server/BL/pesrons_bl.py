@@ -15,11 +15,16 @@ class PersonsBL():
     
     def add_new_person(self, obj):
         persons = self.persons_dal.get_all_persons()
-        persons.append(obj)
-        self.persons_dal.save_persons(persons)
-        return jsonify(f"person {obj['name']} created")
-
-
+        if list(filter(lambda x: x["id"] == int(obj["id"]), persons)):
+            return jsonify({"error": f"id {obj['id']} already exists"}), 400
+        elif list(filter(lambda x: x["name"] == obj["name"], persons)):
+            return jsonify({"error": f"name {obj['name']} already exists"}), 400
+        else:
+            obj["movie_list"] = []
+            persons.append(obj)
+            self.persons_dal.save_persons(persons)
+            return jsonify({"message": f"person {obj['name']} created"}), 201
+    
     def update_person(self, id, obj):
         persons = self.persons_dal.get_all_persons()
         for p in persons:
@@ -37,7 +42,6 @@ class PersonsBL():
         self.persons_dal.save_persons(new_persons)
         return jsonify(f"person {id} deleted")
     
-    
     def add_movie_to_person_list(self, id, obj):
         persons = self.persons_dal.get_all_persons()
         for p in persons:
@@ -49,4 +53,4 @@ class PersonsBL():
                 self.persons_dal.save_persons(persons)
                 return jsonify(f"Movie {obj['title']} added to {p['name']}'s movies list")
         
-        return jsonify(f"Person with ID {id} not found")       
+        return jsonify(f"Person with ID {id} not found")
