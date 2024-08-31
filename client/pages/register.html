@@ -25,7 +25,7 @@
         <form id="registerForm">
             <div class="mb-3">
                 <label for="id" class="form-label">ID</label>
-                <input type="number" class="form-control" id="id" required>
+                <input type="number" class="form-control" id="id" required min="0">
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -41,7 +41,7 @@
 </div>
 
 <script>
-document.getElementById("lastId").innerText = sessionStorage.getItem("lastId")
+document.getElementById("lastId").innerText = "Last Used Id: " + sessionStorage.getItem("lastId")
 document.getElementById("registerForm").onsubmit = async function(event) {
     event.preventDefault();
 
@@ -55,7 +55,9 @@ document.getElementById("registerForm").onsubmit = async function(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            id: Number(id),
+            id: {type: Number(id),
+                min: 0
+            },
             name: name,
             password: password
         })
