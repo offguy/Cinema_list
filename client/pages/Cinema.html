@@ -49,11 +49,11 @@ async function getDataFromServer() {
     // Update lastId
     if (per.id > lastId) {
       lastId = per.id;
+      sessionStorage.setItem("lastId", lastId)
     }
   });
 
-  // Display the last ID used
-  document.getElementById("lastId").innerText = "Last ID number used: " + lastId;
+ 
 }
 
 async function getMoviesFromServer() {
@@ -117,8 +117,7 @@ async function getMoviesFromServer() {
   <button onclick='window.location.href = "http://127.0.0.1:5500/Lessons/Lesson%209%20BAL/Exc/Cinema/client/pages/login.html"'>Login</button>
     <br/> <br/>
 
-    <!-- Section to display the last ID used -->
-    <h4 id="lastId"></h4>
+
     <br/>
 
     <table class="table table-striped  table-bordered">

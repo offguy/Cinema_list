@@ -18,6 +18,8 @@
 <body>
 
 <div class="container">
+        <!-- Section to display the last ID used -->
+        <h4 id="lastId"></h4>
     <div class="registration-form">
         <h3 class="text-center">Register</h3>
         <form id="registerForm">
@@ -39,6 +41,7 @@
 </div>
 
 <script>
+document.getElementById("lastId").innerText = sessionStorage.getItem("lastId")
 document.getElementById("registerForm").onsubmit = async function(event) {
     event.preventDefault();
 
